@@ -12,7 +12,6 @@ const form = document.querySelector('form');
 // save to local storage
 // send to server
 
-const countData = makeCountData();
 const binId = '68f8096ad0ea881f40b1d3ab';
 const jsonUrl = `https://api.jsonbin.io/v3/b/${binId}`;
 
@@ -26,12 +25,14 @@ const masterKey = '$2a$10$qibTQRkJEZckLc6q8IAKFOY7Os1.0gspmWNwNhDAf90abYpXEJNZa'
 async function handleAdd(e) {
     e.preventDefault();
     const entries = getFormEntries();
-    const completeEntry = addItems(entries);
+    addItems(entries);
     await getData();
     const newData = getStorage('data');
     newData.push(entries);
-    console.log(newData);
-    sendData(newData);
+    const updatedData = await sendData(newData);
+    console.log(updatedData);
+    populateCounts(updatedData);
+    makeLayout();
 }
 
 function addItems(entries) {
@@ -69,6 +70,7 @@ async function getData() {
         throw new Error(`http error, status: ${response.status}`);
     }
     const data = await response.json();
+    populateCounts(data.record);
     setStorage(data.record, 'data');
 }
 
@@ -86,7 +88,7 @@ async function sendData(data) {
         throw new Error(`http error, status: ${response.status}`);
     }
     const responseData = await response.json();
-    console.log(response.status, responseData.record);
+    return responseData.record
 }
 
 // function to set local storage
@@ -97,11 +99,38 @@ function setStorage(data, name) {
 function getStorage(name) {
     return JSON.parse(localStorage.getItem(name));
 }
+// populate the counts when new data is received 
+function populateCounts(data) {
+    const countData = makeCountData();
+    const countDataKeys = Object.keys(countData);
+    data.map(item => {
+        const itemValues = Object.values(item);
+        itemValues.map(value => {
+            if (countDataKeys.includes(value)) {
+                countData[value]++;
+            }
+        })
+    })
+    setStorage(countData, 'count');
+}
+
+// layout the count data
+function makeLayout() {
+    const counts = getStorage('count');
+    const container = document.querySelector('.counts-container');
+    container.innerHTML = '';
+    const countValues = Object.keys(counts);
+    countValues.map(value => {
+        const span = document.createElement('span');
+        span.textContent = `${value}: ${counts[value]}`;
+        container.appendChild(span);
+    })
+}
 
 // run getData and makeLayout in this function
 function handlePageLoad() {
     getData();
-    // makeLayout();
+    makeLayout();
 }
 
 // get data and add to local storage on window load
