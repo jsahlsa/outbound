@@ -20,7 +20,7 @@ let masterKey;
 if (import.meta.env.DEV) {
     masterKey = import.meta.env.VITE_ACCESS_KEY;
 } else {
-    masterKey = process.env.ACCESS_KEY;
+    masterKey = import.meta.env.ACCESS_KEY;
 }
 // function runs on click to add data
 // get entries from form
