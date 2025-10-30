@@ -16,7 +16,7 @@ const countData = makeCountData();
 const binId = '68f8096ad0ea881f40b1d3ab';
 const jsonUrl = `https://api.jsonbin.io/v3/b/${binId}`;
 
-const masterKey = import.meta.env.VITE_ACCESS_KEY;
+const masterKey = '$2a$10$qibTQRkJEZckLc6q8IAKFOY7Os1.0gspmWNwNhDAf90abYpXEJNZa';
 // function runs on click to add data
 // get entries from form
 // add date and id
