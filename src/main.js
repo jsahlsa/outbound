@@ -1,6 +1,7 @@
 import './style.css';
 
 const form = document.querySelector('form');
+const csvBtn = document.querySelector('button');
 
 // first on window load:
 // get data and save to local storage
@@ -137,7 +138,37 @@ async function handlePageLoad() {
     makeLayout();
 }
 
+function handleDownload() {
+    const data = getStorage('data');
+    const csv = makeCSV(data);
+    makeDownload(csv);
+}
+
+function makeDownload(csv) {
+    const blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8;'
+    });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'data.csv');
+    link.click();
+}
+
+function makeCSV(data) {
+    let headers = Object.keys(data[0]).join(',') + '\n';
+    console.log(headers);
+    let body = '';
+    data.map(item => {
+        const values = Object.values(item).join(',') + '\n';
+        body += values;
+    });
+    headers += body;
+    return headers;
+}
+
 // get data and add to local storage on window load
 // then set layout with data from local storage
 window.addEventListener('load', handlePageLoad);
 form.addEventListener('submit', handleAdd);
+csvBtn.addEventListener('click', handleDownload);
