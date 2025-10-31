@@ -29,7 +29,6 @@ a:hover {
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: auto auto;
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
@@ -37,8 +36,9 @@ body {
 }
 
 h1 {
-    font-size: 3.2em;
+    font-size: 2.2em;
     line-height: 1.1;
+    font-weight: 200;
 }
 
 #app {
@@ -46,29 +46,6 @@ h1 {
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-}
-
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-}
-
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vanilla:hover {
-    filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-    padding: 2em;
-}
-
-.read-the-docs {
-    color: #888;
 }
 
 button {
@@ -107,13 +84,75 @@ button:focus-visible {
     }
 }
 
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    justify-items: start;
+}
+
+select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+
+.select {
+    width: 100%;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--blue);
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+}
+
+select,
+.select::after {
+    grid-area: select;
+}
+
+.select::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--blue);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+    pointer-events: none;
+}
+
 .counts-container {
     display: grid;
 }
 
 form {
     display: grid;
-    gap: 1rem;
+    gap: 0.6rem;
+}
+
+h2 {
+    margin-top: 0;
+    font-weight: 300;
+    font-size: 1.5rem;
+    text-decoration: underline rgba(0, 0, 0, 0.3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 input[type="submit"] {
@@ -122,4 +161,25 @@ input[type="submit"] {
     color: #fff;
     font-size: 1.2em;
     font-weight: 700;
+    justify-self: center;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: transform 0.1s ease-in;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+
+input[type="submit"]:active {
+    transform: translateY(0.2rem);
+}
+
+.other,
+.unpaid {
+    text-decoration: underline rgba(0, 0, 0, 0.3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.5rem;
+    margin-bottom: 0.3rem;
 }

@@ -120,16 +120,20 @@ function makeLayout() {
     const container = document.querySelector('.counts-container');
     container.innerHTML = '';
     const countValues = Object.keys(counts);
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Package Counts';
+    container.appendChild(h2);
     countValues.map(value => {
         const span = document.createElement('span');
+        span.setAttribute('class', value);
         span.textContent = `${value}: ${counts[value]}`;
         container.appendChild(span);
     })
 }
 
 // run getData and makeLayout in this function
-function handlePageLoad() {
-    getData();
+async function handlePageLoad() {
+    await getData();
     makeLayout();
 }
 

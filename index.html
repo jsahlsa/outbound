@@ -7,23 +7,32 @@
         <title>outbound</title>
     </head>
     <body>
-        <form>
-            <select name="carrier" id="carrier">
-                <option value="fedex" selected>fedex</option>
-                <option value="other">other</option>
-            </select>
-            <select name="paid" id="paid">
-                <option value="paid" selected>paid</option>
-                <option value="unpaid">unpaid</option>
-            </select>
-            <select name="group" id="group">
-                <option value="guest" selected>guest</option>
-                <option value="internal">internal</option>
-                <option value="local">local</option>
-            </select>
-            <input type="submit" value="+">
-        </form>
-        <div class="counts-container"></div>
+        <h1>5584 Outbound Counter</h1>
+        <div class="main-container">
+            <form>
+                <div class="select">
+                    <select name="carrier" id="carrier">
+                        <option value="fedex" selected>fedex</option>
+                        <option value="other">other</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <select name="paid" id="paid">
+                        <option value="paid" selected>paid</option>
+                        <option value="unpaid">unpaid</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <select name="group" id="group">
+                        <option value="guest" selected>guest</option>
+                        <option value="internal">internal</option>
+                        <option value="local">local</option>
+                    </select>
+                </div>
+                <input type="submit" value="+">
+            </form>
+            <div class="counts-container"></div>
+        </div>
         <script type="module" src="/src/main.js"></script>
     </body>
 </html>
