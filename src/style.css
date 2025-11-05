@@ -163,7 +163,7 @@ input[type="submit"] {
     justify-self: center;
     padding: 0.4rem 0.8rem;
     cursor: pointer;
-    transition: transform 0.1s ease-in;
+    transition: transform 0.05s ease-in;
 }
 
 input[type="submit"]:hover {
@@ -173,6 +173,10 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
     transform: translateY(0.2rem);
+}
+
+input[type="submit"]:disabled {
+    background-color: gray;
 }
 
 .other,
@@ -188,4 +192,18 @@ button {
     border: 1px solid var(--black);
     border-radius: 0;
     text-transform: uppercase;
+}
+
+@keyframes disabled-animation {
+    from {
+        opacity: 0.3;
+    }
+
+    to {
+        opacity: 0.8;
+    }
+}
+
+.main-disabled {
+    animation: disabled-animation 0.3s infinite;
 }

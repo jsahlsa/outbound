@@ -2,6 +2,8 @@ import './style.css';
 
 const form = document.querySelector('form');
 const csvBtn = document.querySelector('button');
+const addButton = document.querySelector('#add');
+const mainContainer = document.querySelector('.main-container');
 
 // first on window load:
 // get data and save to local storage
@@ -25,6 +27,8 @@ const masterKey = '$2a$10$qibTQRkJEZckLc6q8IAKFOY7Os1.0gspmWNwNhDAf90abYpXEJNZa'
 // send all to server
 async function handleAdd(e) {
     e.preventDefault();
+    addButton.setAttribute('disabled', 'true');
+    mainContainer.classList.add('main-disabled');
     const entries = getFormEntries();
     addItems(entries);
     await getData();
@@ -34,6 +38,8 @@ async function handleAdd(e) {
     console.log(updatedData);
     populateCounts(updatedData);
     makeLayout();
+    addButton.removeAttribute('disabled');
+    mainContainer.classList.remove('main-disabled');
 }
 
 function addItems(entries) {
